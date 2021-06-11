@@ -1,4 +1,29 @@
 import numpy as np
+import matplotlib.pyplot as plt
+import control
+
+np.set_printoptions(linewidth=300)
+
+
+def sim_step(x, x_ref, A, B, C, K, dt=0.001):
+    """
+    Simulate one time step for given system, with given state-space model
+    :param x: state at time t
+    :param x_ref: reference state
+    :param A: state transition matrix
+    :param B: input matrix
+    :param C: output matrix
+    :param K: controller from state
+    :param dt: time-step size
+    :return: state at time t+dt, output at time t
+    """
+    x_diff = x_ref - x  # Difference in state
+
+    u = K@x_diff  # Force
+    x_next = x + A@x*dt + B*u*dt
+    y = C @ x
+
+    return x_next, y
 
 
 # 171842,172118
@@ -39,7 +64,44 @@ B = np.array([[ 0],
 C = np.eye(4)
 D = np.zeros((4, 1))
 
-print(A)
-print(B)
-print(C)
-print(D)
+# print(A)
+# print(B)
+# print(C)
+# print(D)
+
+
+x = np.array([[-10],
+              [0],
+              [0.05],
+              [0]])
+
+x_ref = np.array([[2],
+                  [0],
+                  [0],
+                  [0]])
+x_t = []
+Pc = control.ctrb(A, B)
+# print(Pc)
+Pc_inv = np.linalg.inv(Pc)
+# print(Pc_inv)
+new_ch_poly = A @ A @ A @ A + 4 * A @ A @ A + 6 * A @ A + 4 * A + np.eye(4)
+K = np.array([0, 0, 0, 1]) @ Pc_inv @ new_ch_poly
+
+Nsteps = 1000
+x0 = []
+x1 = []
+x2 = []
+x3 = []
+for t in range(Nsteps):
+    x, _ = sim_step(x=x, x_ref=x_ref, A=A, B=B, C=C, K=K, dt=0.01)
+    x0.append(x[0, 0])
+    x1.append(x[1, 0])
+    x2.append(x[2, 0])
+    x3.append(x[3, 0])
+
+print(x0)
+plt.plot(x0)  # Polozenie
+plt.plot(x1)  # Predkosc
+plt.plot(x2)  # Kat wahadla
+plt.plot(x3)  # Predkosc katowa wahadla
+plt.show()
