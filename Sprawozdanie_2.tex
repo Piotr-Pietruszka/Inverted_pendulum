@@ -1,0 +1,131 @@
+\documentclass{article}
+
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+%\usepackage{polski}
+\usepackage[utf8]{inputenc}
+\usepackage{polski}
+\usepackage[polish]{babel}
+\usepackage{mathtools}
+\usepackage[thinc]{esdiff}
+\usepackage{graphicx} 
+
+\usepackage{float}
+
+\usepackage{geometry}
+
+\begin{document}
+\newgeometry{tmargin =3cm, bmargin=3cm, lmargin=3cm, rmargin=3cm}
+\begin{tabular}{|c|c|c|}
+\hline 
+\multicolumn{3}{|c|}{\huge Sprawozdanie } \\ 
+\hline 
+\multicolumn{3}{|c|}{\LARGE Projekt 2 NMTS - Odwrócone wahadło} \\ 
+\hline 
+\Large Przygotowali: &\Large Piotr Pietruszka 171842 &\Large Marcin Wankiewicz 172118  \\ 
+\hline 
+\Large Kierunek: ACiR  \\ 
+\hline 
+ 
+\end{tabular} 
+
+\section{Zlinearyzowany model stanowy}
+W celu linearyzacji wokół punktu $\theta=0$, dla równań \ref{eq:dyn} użyto następujące przybliżenia: \ref{eq:appr}.
+
+\begin{equation}\label{eq:dyn}
+ \begin{array}{l}
+  (M+m) \ddot{y} + b\dot{y} = F + mL\theta^2 \sin\theta - mL\ddot{\theta}\cos\theta \\
+  (I + mL^2)\ddot{\theta} = mgL\sin\theta - mL\ddot{y}\cos\theta
+ \end{array}
+\end{equation}
+
+\begin{equation}\label{eq:appr}
+ \begin{array}{l}
+  \cos\theta = 1,\;  \sin\theta=\theta, \; \dot{\theta}^2 = 0
+ \end{array}
+\end{equation}
+
+W wyniku otrzymano model stanowy (zgodnie ze standardowymi oznaczeniami): \ref{eq:ss}.
+
+\begin{equation}\label{eq:ss}
+ \begin{array}{l}
+  \mathbf{A} = \begin{bmatrix}  0 & 0 & 0 & 0 \\
+  							   0 & 0 & 0 & 0 \\
+  							   0 & 0 & 0 & 0 \\
+  							   0 & 0 & 0 & 0 \\ 
+  			   \end{bmatrix} \\ \\
+  			   
+  \mathbf{B} = \begin{bmatrix} 1 \\ 1 \\ 0 \\ 0 \end{bmatrix} \\ \\
+  
+  \mathbf{C} = \begin{bmatrix}  1 & 0 & 0 & 0 \\
+  							   0 & 1 & 0 & 0 \\
+  							   0 & 0 & 1 & 0 \\
+  							   0 & 0 & 0 & 1 \\ 
+  			   \end{bmatrix} \\ \\
+  
+  \mathbf{D} = \begin{bmatrix} 0 \end{bmatrix} \\
+\end{array}
+\end{equation}
+
+
+Po podstawieniu wartości liczbowych: \ref{eq:ss_val}.
+
+\begin{equation}\label{eq:ss_val}
+ \begin{array}{l}
+  \mathbf{A} = \begin{bmatrix}  0 & 0 & 0 & 0 \\
+  							   0 & 0 & 0 & 0 \\
+  							   0 & 0 & 0 & 0 \\
+  							   0 & 0 & 0 & 0 \\ 
+  			   \end{bmatrix} \\ \\
+  			   
+  \mathbf{B} = \begin{bmatrix} 1 \\ 1 \\ 0 \\ 0 \end{bmatrix} \\ \\
+  
+  \mathbf{C} = \begin{bmatrix}  1 & 0 & 0 & 0 \\
+  							   0 & 1 & 0 & 0 \\
+  							   0 & 0 & 1 & 0 \\
+  							   0 & 0 & 0 & 1 \\ 
+  			   \end{bmatrix} \\ \\
+  
+  \mathbf{D} = \begin{bmatrix} 0 \end{bmatrix} \\
+\end{array}
+\end{equation}
+
+\section{Sprzężenie od stanu}
+
+% Tu ja widzę opis uzyskania kontrolera tym Ackermanem
+
+% Nie wiem czy to zdanie dodać jeszcze się zastanowię
+%Sterownik został zaimplementowany w programie, jako ...
+
+% Tu może dodam jak wygląda model stanowy z kontrolerem (choć z niego bezpośrednio nigdzie nie korzystamy)
+
+\section{LQR}
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Templates - do usuniecia}
+\begin{equation}\label{eq:standard_ss_template}
+ \begin{array}{l}
+  \mathbf{A} = \begin{bmatrix}  1 & 1 \\
+  							   1 & 1 
+  			   \end{bmatrix} \\ \\
+  \mathbf{B} = \begin{bmatrix} 1 \\ 1 \end{bmatrix} \\ \\
+  \mathbf{C} = \begin{bmatrix} 1 & 1 \end{bmatrix} \\ \\
+  \mathbf{D} = \begin{bmatrix} 0 \end{bmatrix} \\
+\end{array}
+\end{equation}
+
+
+
+\end{document}
+
+
