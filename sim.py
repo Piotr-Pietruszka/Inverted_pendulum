@@ -76,7 +76,7 @@ a_22 = -(I + m * L ** 2) * b / (I * (M + m) + M * m * L ** 2)  # y'' from y'
 a_23 = -(m ** 2 * g * L ** 2) / (I * (M + m) + M * m * L ** 2)  # y'' from th
 b_2 = (I + m * L ** 2) / (I * (M + m) + M * m * L ** 2)  # y'' from F
 
-a_42 = -b * m * L / (I * (M + m) + M * m * L ** 2)  # th'' from y'
+a_42 = b * m * L / (I * (M + m) + M * m * L ** 2)  # th'' from y'
 a_43 = g * m * L * (M + m) / (I * (M + m) + M * m * L ** 2)  # th'' from th
 b_4 = -m * L / (I * (M + m) + M * m * L ** 2)  # th'' from F
 
