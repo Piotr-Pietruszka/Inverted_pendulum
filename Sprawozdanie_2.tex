@@ -30,32 +30,32 @@
 \end{tabular} 
 
 \section{Zlinearyzowany model stanowy}
-W celu linearyzacji wokół punktu $\theta=0$, dla równań \ref{eq:dyn} użyto następujące przybliżenia: \ref{eq:appr}.
 
+Równania różniczkowe opisujące dynamikę układu przedstawiono w: \ref{eq:dyn}.
 \begin{equation}\label{eq:dyn}
  \begin{array}{l}
   (M+m) \ddot{y} + b\dot{y} = F + mL\theta^2 \sin\theta - mL\ddot{\theta}\cos\theta \\
   (I + mL^2)\ddot{\theta} = mgL\sin\theta - mL\ddot{y}\cos\theta
  \end{array}
 \end{equation}
-
+W celu linearyzacji wokół punktu $\theta=0$, dla równań \ref{eq:dyn} użyto następujące przybliżenia: \ref{eq:appr}.
 \begin{equation}\label{eq:appr}
  \begin{array}{l}
   \cos\theta = 1,\;  \sin\theta=\theta, \; \dot{\theta}^2 = 0
  \end{array}
 \end{equation}
 
-W wyniku otrzymano model stanowy (zgodnie ze standardowymi oznaczeniami): \ref{eq:ss}.
+W wyniku otrzymano model stanowy (macierze zgodnie ze standardowymi oznaczeniami): \ref{eq:ss}, gdzie wektor stanu $\textbf{x}$ jest zdefiniowany w \ref{eq:sv}, a wejściem jest siła $F$ działająca na wózek.
 
 \begin{equation}\label{eq:ss}
  \begin{array}{l}
-  \mathbf{A} = \begin{bmatrix}  0 & 0 & 0 & 0 \\
-  							   0 & 0 & 0 & 0 \\
-  							   0 & 0 & 0 & 0 \\
-  							   0 & 0 & 0 & 0 \\ 
+  \mathbf{A} = \begin{bmatrix}  0 & 1 & 0 & 0 \\
+  							   0 & -\frac{(I+mL^2)b}{I(M+m) + MmL^2} & -\frac{m^2gL^2}{I(M+m) + MmL^2} & 0 \\
+  							   0 & 0 & 0 & 1 \\
+  							   0 & \frac{bmL}{I(M+m) + MmL^2} & \frac{gmL(M+m)}{I(M+m) + MmL^2} & 0 \\ 
   			   \end{bmatrix} \\ \\
   			   
-  \mathbf{B} = \begin{bmatrix} 1 \\ 1 \\ 0 \\ 0 \end{bmatrix} \\ \\
+  \mathbf{B} = \begin{bmatrix} 0 \\ \frac{I + mL^2}{I(M+m) + MmL^2} \\ 0 \\ -\frac{(mL}{I(M+m) + MmL^2} \end{bmatrix} \\ \\
   
   \mathbf{C} = \begin{bmatrix}  1 & 0 & 0 & 0 \\
   							   0 & 1 & 0 & 0 \\
@@ -67,20 +67,27 @@ W wyniku otrzymano model stanowy (zgodnie ze standardowymi oznaczeniami): \ref{e
 \end{array}
 \end{equation}
 
-
+\begin{equation}\label{eq:sv}
+ \begin{array}{l}
+	\mathbf{x} = 
+	\begin{bmatrix} 
+	  y \\ \dot{y} \\ \theta \\ \dot{\theta} 
+	\end{bmatrix} 
+ \end{array}
+\end{equation}
 Po podstawieniu wartości liczbowych: \ref{eq:ss_val}.
 
 \begin{equation}\label{eq:ss_val}
  \begin{array}{l}
-  \mathbf{A} = \begin{bmatrix}  0 & 0 & 0 & 0 \\
-  							   0 & 0 & 0 & 0 \\
-  							   0 & 0 & 0 & 0 \\
-  							   0 & 0 & 0 & 0 \\ 
+  \mathbf{A} = \begin{bmatrix}  0 & 1 & 0 & 0 \\
+  							   0 & -1.16896918\cdot10^{-2} & -2.81381031\cdot10^{-1} & 0 \\
+  							  0 & 0 & 0 & 1 \\
+  							   0 & 3.18809777\cdot10^{-2} & 2.75128119\cdot10^{1} & 0 \\ 
   			   \end{bmatrix} \\ \\
   			   
-  \mathbf{B} = \begin{bmatrix} 1 \\ 1 \\ 0 \\ 0 \end{bmatrix} \\ \\
+  \mathbf{B} = \begin{bmatrix} 0 \\ 0.11689692 \\ 0 \\ -0.31880978 \end{bmatrix} \\ \\
   
-  \mathbf{C} = \begin{bmatrix}  1 & 0 & 0 & 0 \\
+  \mathbf{C} = \begin{bmatrix} 1 & 0 & 0 & 0 \\
   							   0 & 1 & 0 & 0 \\
   							   0 & 0 & 1 & 0 \\
   							   0 & 0 & 0 & 1 \\ 
