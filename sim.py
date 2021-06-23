@@ -3,9 +3,13 @@ import matplotlib.pyplot as plt
 import control
 import scipy
 
+plt.rcParams["figure.figsize"] = (8, 7)
+
 # Hyperparameters
-num_steps = 3000
+num_steps = 10000
 dt = 0.01
+plot_ss = False
+plot_lqr = True
 
 
 def sim_step(x, x_ref, A, B, C, K, d_t):
@@ -54,8 +58,23 @@ def get_output(x_0, x_ref, A, B, C, K, iterations, d_t):
 
 
 def plot_output(y):
-    for i in range(4):
-        plt.plot(y[i])
+    """
+    Plot each output on separate subplot, from given array of four signals
+    :param y: array of four signal values
+    """
+    fig, axs = plt.subplots(2, 2)
+
+    axs[0, 0].set_title('cart position [m]')
+    axs[0, 0].plot(y[0])
+
+    axs[0, 1].set_title('cart velocity [m/s]')
+    axs[0, 1].plot(y[1])
+
+    axs[1, 0].set_title("pendulum's angle [rad]")
+    axs[1, 0].plot(y[2])
+
+    axs[1, 1].set_title("pendulum's angular velocity [rad/s]")
+    axs[1, 1].plot(y[3])
     plt.show()
 
 
@@ -113,13 +132,28 @@ des_ch_poly = np.linalg.matrix_power(A, 4) + 4 * np.linalg.matrix_power(A, 3) + 
 K_ss = np.array([0, 0, 0, 1]) @ Pc_inv @ des_ch_poly
 
 y_ss = get_output(x_init, x_des, A, B, C, K_ss, num_steps, dt)
-plot_output(y_ss)
+if plot_ss:
+    plot_output(y_ss)
 
 # LQR regulator
-Q = 1 * np.eye(4)
-R = 1 * np.eye(1)
+Q = np.array([[1000, 0, 0, 0],
+              [0, 1000, 0, 0],
+              [0, 0, 1000, 0],
+              [0, 0, 0, 1000]])
+R = 0.01 * np.eye(1)
+# Q = np.array([[0.5, 0, 0, 0],
+#               [0, 0.1, 0, 0],
+#               [0, 0, 0.1, 0],
+#               [0, 0, 0, 0.1]])
+# R = 100 * np.eye(1)
+# Q = np.array([[1, 0, 0, 0],
+#               [0, 1000, 0, 0],
+#               [0, 0, 0.1, 0],
+#               [0, 0, 0, 0.1]])
+# R = 0.1 * np.eye(1)
+
 P = scipy.linalg.solve_continuous_are(A, B, Q, R)
 K_lqr = (np.linalg.inv(R) @ B.transpose() @ P)[0]
-
 y_lqr = get_output(x_init, x_des, A, B, C, K_lqr, num_steps, dt)
-plot_output(y_lqr)
+if plot_lqr:
+    plot_output(y_lqr)
